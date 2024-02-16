@@ -1,0 +1,51 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Display",
+            "request": "launch",
+            "mainClass": "src.Game.Display",
+            "projectName": "pook_5d9f7923"
+        },
+        {
+            "type": "java",
+            "name": "Display",
+            "request": "launch",
+            "mainClass": "src.Game.Display",
+            "projectName": "pook_3eca27a1"
+        },
+        {
+            "type": "java",
+            "name": "Display",
+            "request": "launch",
+            "mainClass": "src.Game.Display",
+            "projectName": "pook_fa07b898"
+        },
+        {
+            "type": "java",
+            "name": "dinosaur",
+            "request": "launch",
+            "mainClass": "dinosaur",
+            "projectName": "pook_fa07b898"
+        },
+        {
+            "type": "java",
+            "name": "GAME",
+            "request": "launch",
+            "mainClass": "src.Game.GAME",
+            "projectName": "pook_fa07b898"
+        },
+        {
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "name": "Launch Extension",
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ],
+            "preLaunchTask": "npm",
+            "request": "launch",
+            "type": "extensionHost"
+        }
+    ]
+}
