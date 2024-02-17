@@ -14,9 +14,9 @@ public class Chick {
 	public int ChickSize;
 	public int width;
 	public int height;
-    public static int jumpfloat = 100 ;
+    public static int jumpfloat = 45 ;
 	public int speed ;
-	public int health=100;
+	public int health = 100 ;
 	public Chick(){
 
 	}

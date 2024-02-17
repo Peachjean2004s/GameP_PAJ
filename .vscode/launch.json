@@ -2,6 +2,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MovingLabel",
+            "request": "launch",
+            "mainClass": "src.Game.MovingLabel",
+            "projectName": "pook_946f8776"
+        },
+        {
+            "type": "java",
+            "name": "ZoomableLabel",
+            "request": "launch",
+            "mainClass": "src.ZoomableLabel",
+            "projectName": "pook_946f8776"
+        },
+        {
+            "type": "java",
+            "name": "KAIYANG",
+            "request": "launch",
+            "mainClass": "src.Game.KAIYANG",
+            "projectName": "pook_946f8776"
+        },
+        {
+            "type": "java",
+            "name": "Display",
+            "request": "launch",
+            "mainClass": "src.Game.Display",
+            "projectName": "pook_946f8776"
+        },
+        {
+            "type": "java",
             "name": "Display",
             "request": "launch",
             "mainClass": "src.Game.Display",

@@ -2,10 +2,10 @@ package src.character;
 
 import java.awt.Font;
 import java.io.File;
-
+import java.io.IOException;
 public class Element {
 
-	public static Font getFont(int size){
+	public static Font getFont(int size) {
 		Font font = null;
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT,new File("font\\Mali-Bold.ttf"));
