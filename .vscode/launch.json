@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Gamet",
+            "request": "launch",
+            "mainClass": "src.Event.Gamet",
+            "projectName": "pook_946f8776"
+        },
+        {
+            "type": "java",
+            "name": "Sound",
+            "request": "launch",
+            "mainClass": "src.Event.Sound",
+            "projectName": "pook_946f8776"
+        },
+        {
+            "type": "java",
             "name": "KAIYANG",
             "request": "launch",
             "mainClass": "src.Game.KAIYANG",

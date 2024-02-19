@@ -3,6 +3,9 @@ package src.character;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import src.Event.Music;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -16,7 +19,7 @@ public class Chick {
 	public int height;
     public static int jumpfloat = 120 ;
 	public int speed ;
-	public int health = 100 ;
+	public int health = 120 ;
 	public Chick(){
 
 	}

@@ -16,8 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import src.Event.Check;
+import src.Event.Music;
 import src.character.Chick;
 import src.character.Environment;
 import src.character.Obstruc;
@@ -33,12 +33,16 @@ public class GAME extends JPanel implements KeyListener {
     static JLabel h1; 
     static JLabel h2; 
     static JLabel h3;
+    public Music m = new Music() ;
     protected GAME() {
         setBounds(300, 200, 1000, 600);
         setFocusable(true);
         setLayout(null);
         addKeyListener(this);
         spawnObstrucs(8);
+        m.playBackgroundSound();
+        
+       
     }
 
     protected void setGameState(int state) {
@@ -81,15 +85,16 @@ public class GAME extends JPanel implements KeyListener {
 
         ImageIcon icon2 = new ImageIcon("img/startgame.png");
         JButton startButton = new JButton(icon2);
-
+        startButton.setBounds(400, 250, icon2.getIconWidth(), icon2.getIconHeight());
         startButton.setOpaque(false); 
         startButton.setContentAreaFilled(false); 
         startButton.setBorderPainted(false);
-        startButton.setBounds(225, 270, icon.getIconWidth(), icon.getIconHeight());
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setGameState(1);
+                m.stopBackgroundSound();
+                
             }
         });
         add(startButton);
@@ -97,57 +102,63 @@ public class GAME extends JPanel implements KeyListener {
         setVisible(true);
     }
 
+
     // -------------------------------------- drawPlayState -----------------------------------------------------//
     protected void drawPlayState(Graphics g) {
         Graphics2D gd = (Graphics2D) g;
-        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 26));
         gd.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
-        gd.setColor(Color.black);
-        gd.drawString("Point : " + point, 400, 50);
+        gd.setFont(new Font("Arial", Font.BOLD, 20));
+        gd.setColor(Color.white);
+        gd.drawString("score : " + point, 455, 40);
         // ------CHICK-----
         gd.drawImage(P.getImage(), P.x, P.y, P.width, P.height, null);
+        gd.drawString("Health : " + P.health + " % ", 870, 40);
         // -----OBSTRC-----
         for (Obstruc item : obstrucList) {
             drawEvi(item, gd);
         }
         point += 1;
-        
+        score = point ;
     }
+
 
     // ------------------------------ drawEndState ------------------------------------------------------//
     protected void drawEndState(Graphics g) {
+        //gameOver 
         g.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
         ImageIcon icon = new ImageIcon("img/gameover2.png");
         JLabel endLabel = new JLabel(icon);
         endLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        endLabel.setBounds(241, 120, 519, 146);
-        
-        JLabel showPoint = new JLabel(String.format("Your score %d", score));
-        int fontSize = 27;
-        Font font = new Font(Font.MONOSPACED, Font.PLAIN, fontSize);
-        showPoint.setFont(font);
-        showPoint.setHorizontalAlignment(SwingConstants.CENTER);
-        showPoint.setBounds(241, 200, 519, 146);
+        endLabel.setBounds(241, 50, 519, 146);
 
+        //Show scores 
+        JLabel pointLabel = new JLabel("Your Score: " + score);
+        pointLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        pointLabel.setForeground(Color.white);
+        pointLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        pointLabel.setBounds(400, 200, 200, 30);
+
+
+        // restartbutton 
         ImageIcon icon2 = new ImageIcon("img/restart1.png");
         JButton restartButton = new JButton(icon2);
-
         restartButton.setOpaque(false); 
         restartButton.setContentAreaFilled(false); 
         restartButton.setBorderPainted(false);
-        restartButton.setBounds(290, 320, icon.getIconWidth(), icon.getIconHeight());
+        restartButton.setBounds(459, 270, icon2.getIconWidth(), icon2.getIconHeight());
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setGameState(1);
+                m.stopBackgroundSound();
             }
         });
-
+        add(pointLabel);
         add(endLabel);
-        add(showPoint);
         add(restartButton);
         setVisible(true);
     }
+
 
     // -------------------------------- Set spawn ----------------------------------------------//
     protected void spawnObstrucs(int count) {
@@ -163,11 +174,12 @@ public class GAME extends JPanel implements KeyListener {
     protected void drawEvi(Obstruc ob, Graphics2D g) {
         g.drawImage(ob.getImage(), ob.x, ob.y, ob.width, ob.height, null);
         if (Check.checkHit(P, ob)) {
+            m.crashSound();
             g.setStroke(new BasicStroke(10.0f));
             g.setColor(Color.RED);
             g.drawRect(0, 0, 984, 562);
-            P.health -= 1;
-    
+            P.health -= 2;
+            
             if (P.health <= 0) {
                 removeHealthLabel(h3);
                 P.health = new Chick().health;
@@ -178,6 +190,7 @@ public class GAME extends JPanel implements KeyListener {
                 point = 0;
                 spawnObstrucs(8);
                 setGameState(2);
+                m.playBackgroundSound();
             }
             if (P.health <= 100 ) {
                 removeHealthLabel(h1);
@@ -228,6 +241,7 @@ public class GAME extends JPanel implements KeyListener {
             if (e.getKeyCode() == 87 || e.getKeyCode() == 38 || e.getKeyCode() == 32) {
                 P.jump(this);
                 repaint();
+                m.JMSound();
             }
             lastPress = System.currentTimeMillis();
         }
