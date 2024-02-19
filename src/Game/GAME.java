@@ -2,8 +2,11 @@ package src.Game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -27,6 +30,7 @@ public class GAME extends JPanel implements KeyListener {
     private Obstruc O1 = new Obstruc(900, 430, 42, 42, this);
     private long lastPress = 0;
     public  long point = 0;
+    public long score;
     protected int gameState;
     static JLabel h1; 
     static JLabel h2; 
@@ -98,19 +102,21 @@ public class GAME extends JPanel implements KeyListener {
     // -------------------------------------- drawPlayState -----------------------------------------------------//
     protected void drawPlayState(Graphics g) {
         Graphics2D gd = (Graphics2D) g;
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 26));
         gd.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
         // gd.setFont(Element.getFont(30));
         gd.setColor(Color.black);
-        gd.drawString("Point : " + point, 465, 40);
+        gd.drawString("Point : " + point, 400, 50);
         // ------CHICK-----
         gd.drawImage(P.getImage(), P.x, P.y, P.width, P.height, null);
-        gd.drawString("Health : " + P.health + " % ", 900, 40);
+        // gd.drawString("Health : " + P.health + " % ", 700, 40);
 
         // -----OBSTRC-----
         for (Obstruc item : obstrucList) {
             drawEvi(item, gd);
         }
         point += 1;
+        
     }
 
     // ------------------------------ drawEndState ------------------------------------------------------//
@@ -120,6 +126,13 @@ public class GAME extends JPanel implements KeyListener {
         JLabel endLabel = new JLabel(icon);
         endLabel.setHorizontalAlignment(SwingConstants.CENTER);
         endLabel.setBounds(241, 120, 519, 146);
+        
+        JLabel showPoint = new JLabel(String.format("Your score %d", score));
+        int fontSize = 27;
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, fontSize);
+        showPoint.setFont(font);
+        showPoint.setHorizontalAlignment(SwingConstants.CENTER);
+        showPoint.setBounds(241, 200, 519, 146);
 
         ImageIcon icon2 = new ImageIcon("img/restart1.png");
         JButton restartButton = new JButton(icon2);
@@ -127,7 +140,7 @@ public class GAME extends JPanel implements KeyListener {
         restartButton.setOpaque(false); 
         restartButton.setContentAreaFilled(false); 
         restartButton.setBorderPainted(false);
-        restartButton.setBounds(280, 270, icon.getIconWidth(), icon.getIconHeight());
+        restartButton.setBounds(290, 320, icon.getIconWidth(), icon.getIconHeight());
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,6 +149,7 @@ public class GAME extends JPanel implements KeyListener {
         });
 
         add(endLabel);
+        add(showPoint);
         add(restartButton);
         setVisible(true);
     }
@@ -165,7 +179,8 @@ public class GAME extends JPanel implements KeyListener {
                 h1 = null;
                 h2 = null;
                 h3 = null;
-                point = 0 ;
+                score = point;
+                point = 0;
                 spawnObstrucs(8);
                 setGameState(2);
             }
@@ -200,11 +215,13 @@ public class GAME extends JPanel implements KeyListener {
             return h3 ;
     }
    private void removeHealthLabel(JLabel label) {
+        ImageIcon icon = new ImageIcon("img/heart_empty.png");
+        JLabel newlabel = new JLabel(icon);
+        newlabel.setBounds(label.getX(), label.getY(), icon.getIconWidth(), icon.getIconHeight());
         remove(label);
-        revalidate();
+        add(newlabel);
         repaint();
-    }
-
+   }
     // ------------------------------ SetKeyPressed ----------------------------------------------//
     @Override
     public void keyTyped(KeyEvent e) {
@@ -221,7 +238,7 @@ public class GAME extends JPanel implements KeyListener {
         }
 
     }
-
+    
     @Override
     public void keyReleased(KeyEvent e) {
     }
