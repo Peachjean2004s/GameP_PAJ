@@ -9,7 +9,7 @@ import javax.swing.Timer;
 
 public class Obstruc  {
     public int x, y, width, height,reStart;
-    int speed = 12 ;
+    int speed = 8 ; //8
 
     public Obstruc(int x, int y, int width, int height,JPanel GAME) {
         reStart = x ;

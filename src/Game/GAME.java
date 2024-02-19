@@ -15,16 +15,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import src.Event.Check;
 import src.character.Chick;
-import src.character.Element;
 import src.character.Environment;
 import src.character.Obstruc;
 
 public class GAME extends JPanel implements KeyListener {
     private List<Obstruc> obstrucList = new ArrayList<>();
-    private Chick P = new Chick(150, 350, 75, 120); //150 383 44 70
-    private Obstruc O1 = new Obstruc(900, 410, 56, 56, this); // 900 412 30 40
+    private Chick P = new Chick(150, 375, 56, 90);
+    private Obstruc O1 = new Obstruc(900, 430, 42, 42, this);
     private long lastPress = 0;
     public  long point = 0;
     protected int gameState;
@@ -99,7 +99,7 @@ public class GAME extends JPanel implements KeyListener {
     protected void drawPlayState(Graphics g) {
         Graphics2D gd = (Graphics2D) g;
         gd.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
-        gd.setFont(Element.getFont(30));
+        // gd.setFont(Element.getFont(30));
         gd.setColor(Color.black);
         gd.drawString("Point : " + point, 465, 40);
         // ------CHICK-----
@@ -143,7 +143,7 @@ public class GAME extends JPanel implements KeyListener {
     // -------------------------------- Set spawn ----------------------------------------------//
     protected void spawnObstrucs(int count) {
         obstrucList.clear();
-        int far = 500;
+        int far = 1000;
         for (int i = 0; i < count; i++) {
             int randomX = 800 + far + (int) (Math.random() * 500);
             obstrucList.add(new Obstruc(randomX, O1.y, O1.width, O1.height, this));
@@ -157,7 +157,7 @@ public class GAME extends JPanel implements KeyListener {
             g.setStroke(new BasicStroke(10.0f));
             g.setColor(Color.RED);
             g.drawRect(0, 0, 984, 562);
-            P.health -= 3;
+            P.health -= 1;
     
             if (P.health <= 0) {
                 removeHealthLabel(h3);

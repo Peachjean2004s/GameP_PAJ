@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.sound.sampled.*;
 
 public class Chick {
     public int x ;
@@ -15,7 +14,7 @@ public class Chick {
 	public int ChickSize;
 	public int width;
 	public int height;
-    public static int jumpfloat = 70 ;
+    public static int jumpfloat = 120 ;
 	public int speed ;
 	public int health = 100 ;
 	public Chick(){
@@ -28,28 +27,46 @@ public class Chick {
 		this.height = height ;
 
     }
+
 	public void jump(JPanel page) {
-		this.y -= jumpfloat;
-		page.repaint();
-		Timer timer =new Timer(500,new ActionListener() {
+		final int numFrames = 20; // Number of frames for the animation
+		final int animationDuration = 100; // Duration of the animation in milliseconds
+		final int deltaY = jumpfloat / numFrames; // Amount to move in each frame
+	
+		Timer timer = new Timer(animationDuration / numFrames, new ActionListener() {
+			int frameCount = 0;
+	
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					y += jumpfloat;
-					// Play the sound when jumping
-					try {
-						MusicKub.music("img/jump-15984.mp3");
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					page.repaint();
+				if (frameCount < numFrames) {
+					y -= deltaY; // Move the object up
+					page.repaint(); // Repaint the panel
+					frameCount++;
+				} else {
+					((Timer) e.getSource()).stop(); // Stop the timer when animation is done
+					// Move the object back down
+					Timer downTimer = new Timer(animationDuration / numFrames, new ActionListener() {
+						int downFrameCount = 0;
+	
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if (downFrameCount < numFrames) {
+								y += deltaY; // Move the object down
+								page.repaint(); // Repaint the panel
+								downFrameCount++;
+							} else {
+								((Timer) e.getSource()).stop(); // Stop the timer when animation is done
+							}
+						}
+					});
+					downTimer.start(); // Start the downward animation
+				}
 			}
 		});
-		timer.setRepeats(false);
-		timer.start();
+	
+		timer.start(); // Start the upward animation
 	}
-
+	
 	public BufferedImage getImage() {
 		BufferedImage image = null;
 		try {
