@@ -31,7 +31,7 @@ public class Chick {
 	public void jump(JPanel page) {
 		this.y -= jumpfloat;
 		page.repaint();
-		Timer timer =new Timer(550,new ActionListener() {
+		Timer timer =new Timer(500,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					y += jumpfloat;

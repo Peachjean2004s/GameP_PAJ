@@ -72,13 +72,18 @@ public class GAME extends JPanel implements KeyListener {
     // --------------------------------------- drawStartState -----------------------------------------------//
     protected void drawStartState(Graphics g) {
         g.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
-        ImageIcon icon = new ImageIcon("img/purple_group.png");
+        ImageIcon icon = new ImageIcon("img/pink2_group.png");
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
         iconLabel.setBounds(241, 120, icon.getIconWidth(), icon.getIconHeight());
 
-        JButton startButton = new JButton("Start Game");
-        startButton.setBounds(395, 300, 200, 50);
+        ImageIcon icon2 = new ImageIcon("img/startgame.png");
+        JButton startButton = new JButton(icon2);
+
+        startButton.setOpaque(false); 
+        startButton.setContentAreaFilled(false); 
+        startButton.setBorderPainted(false);
+        startButton.setBounds(225, 270, icon.getIconWidth(), icon.getIconHeight());
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,7 +105,6 @@ public class GAME extends JPanel implements KeyListener {
         // ------CHICK-----
         gd.drawImage(P.getImage(), P.x, P.y, P.width, P.height, null);
         gd.drawString("Health : " + P.health + " % ", 900, 40);
-        // drawHealth();
 
         // -----OBSTRC-----
         for (Obstruc item : obstrucList) {
@@ -117,8 +121,13 @@ public class GAME extends JPanel implements KeyListener {
         endLabel.setHorizontalAlignment(SwingConstants.CENTER);
         endLabel.setBounds(241, 120, 519, 146);
 
-        JButton restartButton = new JButton("Restart");
-        restartButton.setBounds(395, 300, 200, 50);
+        ImageIcon icon2 = new ImageIcon("img/restart1.png");
+        JButton restartButton = new JButton(icon2);
+
+        restartButton.setOpaque(false); 
+        restartButton.setContentAreaFilled(false); 
+        restartButton.setBorderPainted(false);
+        restartButton.setBounds(280, 270, icon.getIconWidth(), icon.getIconHeight());
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
