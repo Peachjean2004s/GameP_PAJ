@@ -23,14 +23,16 @@ import src.character.Obstruc;
 
 public class GAME extends JPanel implements KeyListener {
     private List<Obstruc> obstrucList = new ArrayList<>();
-    private Chick P = new Chick(150, 383, 44, 70);
-    private Obstruc O1 = new Obstruc(900, 412, 30, 40, this);
+    private Chick P = new Chick(150, 350, 75, 120); //150 383 44 70
+    private Obstruc O1 = new Obstruc(900, 410, 56, 56, this); // 900 412 30 40
     private long lastPress = 0;
     public  long point = 0;
     protected int gameState;
+    static JLabel h1; 
+    static JLabel h2; 
+    static JLabel h3;
     protected GAME() {
-        // setOpaque(false);
-        setBounds(0, 0, 1000, 600);
+        setBounds(300, 200, 1000, 600);
         setFocusable(true);
         setLayout(null);
         addKeyListener(this);
@@ -40,7 +42,6 @@ public class GAME extends JPanel implements KeyListener {
     protected void setGameState(int state) {
         this.gameState = state;
         this.removeAll();
-        // Repaint the frame
         this.repaint();
     }
 
@@ -52,6 +53,12 @@ public class GAME extends JPanel implements KeyListener {
                 drawStartState(g);
                 break;
             case 1:
+                if(h1 == null)
+                    h1 = health_1();
+                if(h2 == null)
+                    h2 = health_2();
+                if(h3 == null)
+                    h3 = health_3();
                 drawPlayState(g);
                 break;
             case 2:
@@ -68,21 +75,19 @@ public class GAME extends JPanel implements KeyListener {
         ImageIcon icon = new ImageIcon("img/purple_group.png");
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        iconLabel.setBounds(241, 120, icon.getIconWidth(), icon.getIconHeight()); // Example bounds, adjust as needed
+        iconLabel.setBounds(241, 120, icon.getIconWidth(), icon.getIconHeight());
 
-        // Create a JButton
         JButton startButton = new JButton("Start Game");
-        startButton.setBounds(395, 300, 200, 50); // Example bounds, adjust as needed
+        startButton.setBounds(395, 300, 200, 50);
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setGameState(1);
             }
         });
-        // Add button and icon to the GAME panel
         add(startButton);
         add(iconLabel);
-        setVisible(true); // Ensure the panel is visible
+        setVisible(true);
     }
 
     // -------------------------------------- drawPlayState -----------------------------------------------------//
@@ -94,6 +99,9 @@ public class GAME extends JPanel implements KeyListener {
         gd.drawString("Point : " + point, 465, 40);
         // ------CHICK-----
         gd.drawImage(P.getImage(), P.x, P.y, P.width, P.height, null);
+        gd.drawString("Health : " + P.health + " % ", 900, 40);
+        // drawHealth();
+
         // -----OBSTRC-----
         for (Obstruc item : obstrucList) {
             drawEvi(item, gd);
@@ -103,28 +111,24 @@ public class GAME extends JPanel implements KeyListener {
 
     // ------------------------------ drawEndState ------------------------------------------------------//
     protected void drawEndState(Graphics g) {
-        // Create a JLabel for displaying the end message
         g.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
         ImageIcon icon = new ImageIcon("img/gameover2.png");
         JLabel endLabel = new JLabel(icon);
         endLabel.setHorizontalAlignment(SwingConstants.CENTER);
         endLabel.setBounds(241, 120, 519, 146);
 
-        // Create buttons for restarting and closing the game
         JButton restartButton = new JButton("Restart");
         restartButton.setBounds(395, 300, 200, 50);
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setGameState(1);
-                
             }
         });
 
-        // Add components to the GAME panel
         add(endLabel);
         add(restartButton);
-        setVisible(true); // Ensure the panel is visible
+        setVisible(true);
     }
 
     // -------------------------------- Set spawn ----------------------------------------------//
@@ -137,48 +141,31 @@ public class GAME extends JPanel implements KeyListener {
             far += 500;
         }
     }
-
-    // -------------------------NullPointerException---------------------------------------//
-    private JLabel h1; 
-    private JLabel h2; 
-    private JLabel h3; 
-    private void checkOBJheartNull(){
-        if (h1 == null) {
-            h1 = health_1();
-       }
-       if(h2 == null){
-            h2 = health_2();
-        }
-       if(h3 == null){
-            h3 = health_3();
-       }
-    }
-
     // -------------------------draw Obstruc and checkHit---------------------------------------//
     protected void drawEvi(Obstruc ob, Graphics2D g) {
         g.drawImage(ob.getImage(), ob.x, ob.y, ob.width, ob.height, null);
-        checkOBJheartNull();
         if (Check.checkHit(P, ob)) {
             g.setStroke(new BasicStroke(10.0f));
             g.setColor(Color.RED);
-            g.drawRect(0, 0, 1000, 600);
+            g.drawRect(0, 0, 984, 562);
             P.health -= 3;
-            P.health += 1;
     
             if (P.health <= 0) {
-                setGameState(2);
+                removeHealthLabel(h3);
                 P.health = new Chick().health;
+                h1 = null;
+                h2 = null;
+                h3 = null;
                 point = 0 ;
+                spawnObstrucs(8);
+                setGameState(2);
             }
             if (P.health <= 100 ) {
                 removeHealthLabel(h1);
             }
             if(P.health <= 50 ){
                 removeHealthLabel(h2);
-             }
-             if(P.health <= 20){
-                removeHealthLabel(h3);
-             }
+            }
         }
     }
     // ------------------------------ 3 Hearts ----------------------------------------------//

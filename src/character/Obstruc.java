@@ -9,7 +9,7 @@ import javax.swing.Timer;
 
 public class Obstruc  {
     public int x, y, width, height,reStart;
-    int speed = 6 ;
+    int speed = 12 ;
 
     public Obstruc(int x, int y, int width, int height,JPanel GAME) {
         reStart = x ;
@@ -23,7 +23,7 @@ public class Obstruc  {
     public void move(JPanel page) {
         this.x -= speed;
         page.repaint();
-        Timer timer = new Timer(10, new ActionListener() {
+        Timer timer = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 x -= speed;

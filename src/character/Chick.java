@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import javax.sound.sampled.*;
 
 public class Chick {
     public int x ;
@@ -14,7 +15,7 @@ public class Chick {
 	public int ChickSize;
 	public int width;
 	public int height;
-    public static int jumpfloat = 45 ;
+    public static int jumpfloat = 70 ;
 	public int speed ;
 	public int health = 100 ;
 	public Chick(){
@@ -30,10 +31,18 @@ public class Chick {
 	public void jump(JPanel page) {
 		this.y -= jumpfloat;
 		page.repaint();
-		Timer timer =new Timer(400,new ActionListener() {
+		Timer timer =new Timer(550,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					y += jumpfloat;
+					// Play the sound when jumping
+					try {
+						MusicKub.music("img/jump-15984.mp3");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					page.repaint();
 			}
 		});
@@ -52,8 +61,12 @@ public class Chick {
 		return image;
 	}
 	public boolean chickstate(){
-		if(this.health<= 0)
+		if(this.health <= 0)
 			return false;
 		return true;
-	}	
+	}
+
+    
+    
+
 }

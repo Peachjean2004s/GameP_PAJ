@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "KAIYANG",
+            "request": "launch",
+            "mainClass": "src.Game.KAIYANG",
+            "projectName": "Gamefinal_33b170de"
+        },
+        {
+            "type": "java",
             "name": "MovingLabel",
             "request": "launch",
             "mainClass": "src.Game.MovingLabel",

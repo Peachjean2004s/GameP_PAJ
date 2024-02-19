@@ -2,7 +2,6 @@ package src.character;
 
 import java.awt.Font;
 import java.io.File;
-import java.io.IOException;
 public class Element {
 
 	public static Font getFont(int size) {

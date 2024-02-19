@@ -1,6 +1,4 @@
 package src.Game;
-import java.awt.Graphics;
-
 import javax.swing.JFrame;
 
 public class Display extends JFrame  {
@@ -15,15 +13,7 @@ public class Display extends JFrame  {
         setSize(1000, 600);
         add(game);
         setVisible(true);
+        setLocationRelativeTo(null);
 	}
-
-    // public void removeContent() {
-	// 	getContentPane().removeAll();
-	// 	revalidate(); 
-	// 	repaint();
-	// }
-
-  
-
 
 }
