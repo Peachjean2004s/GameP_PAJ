@@ -2,11 +2,9 @@ package src.Game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -104,13 +102,10 @@ public class GAME extends JPanel implements KeyListener {
         Graphics2D gd = (Graphics2D) g;
         g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 26));
         gd.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
-        // gd.setFont(Element.getFont(30));
         gd.setColor(Color.black);
         gd.drawString("Point : " + point, 400, 50);
         // ------CHICK-----
         gd.drawImage(P.getImage(), P.x, P.y, P.width, P.height, null);
-        // gd.drawString("Health : " + P.health + " % ", 700, 40);
-
         // -----OBSTRC-----
         for (Obstruc item : obstrucList) {
             drawEvi(item, gd);

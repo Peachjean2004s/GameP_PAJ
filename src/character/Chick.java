@@ -29,9 +29,9 @@ public class Chick {
     }
 
 	public void jump(JPanel page) {
-		final int numFrames = 20; // Number of frames for the animation
-		final int animationDuration = 100; // Duration of the animation in milliseconds
-		final int deltaY = jumpfloat / numFrames; // Amount to move in each frame
+		final int numFrames = 20;
+		final int animationDuration = 100;
+		final int deltaY = jumpfloat / numFrames; 
 	
 		Timer timer = new Timer(animationDuration / numFrames, new ActionListener() {
 			int frameCount = 0;
@@ -39,32 +39,31 @@ public class Chick {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (frameCount < numFrames) {
-					y -= deltaY; // Move the object up
-					page.repaint(); // Repaint the panel
+					y -= deltaY;
+					page.repaint(); 
 					frameCount++;
 				} else {
-					((Timer) e.getSource()).stop(); // Stop the timer when animation is done
-					// Move the object back down
+					((Timer) e.getSource()).stop(); 
 					Timer downTimer = new Timer(animationDuration / numFrames, new ActionListener() {
 						int downFrameCount = 0;
 	
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							if (downFrameCount < numFrames) {
-								y += deltaY; // Move the object down
-								page.repaint(); // Repaint the panel
+								y += deltaY; 
+								page.repaint(); 
 								downFrameCount++;
 							} else {
-								((Timer) e.getSource()).stop(); // Stop the timer when animation is done
+								((Timer) e.getSource()).stop();
 							}
 						}
 					});
-					downTimer.start(); // Start the downward animation
+					downTimer.start(); 
 				}
 			}
 		});
 	
-		timer.start(); // Start the upward animation
+		timer.start();
 	}
 	
 	public BufferedImage getImage() {
