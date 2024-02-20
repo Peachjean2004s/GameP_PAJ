@@ -107,12 +107,12 @@ public class GAME extends JPanel implements KeyListener {
     protected void drawPlayState(Graphics g) {
         Graphics2D gd = (Graphics2D) g;
         gd.drawImage(Environment.getImage(), 0, 0, 1000, 600, null);
-        gd.setFont(new Font("Arial", Font.BOLD, 20));
+        gd.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         gd.setColor(Color.white);
         gd.drawString("score : " + point, 455, 40);
         // ------CHICK-----
         gd.drawImage(P.getImage(), P.x, P.y, P.width, P.height, null);
-        gd.drawString("Health : " + P.health + " % ", 870, 40);
+        // gd.drawString("Health : " + P.health + " % ", 870, 40);
         // -----OBSTRC-----
         for (Obstruc item : obstrucList) {
             drawEvi(item, gd);
@@ -133,7 +133,7 @@ public class GAME extends JPanel implements KeyListener {
 
         //Show scores 
         JLabel pointLabel = new JLabel("Your Score: " + score);
-        pointLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        pointLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         pointLabel.setForeground(Color.white);
         pointLabel.setHorizontalAlignment(SwingConstants.CENTER);
         pointLabel.setBounds(400, 200, 200, 30);

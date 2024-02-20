@@ -11,8 +11,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Music {
     private static Clip clipBK;
-    // private static Clip clipJM;
-    // private static Clip clipCR;
 
     public void playBackgroundSound() {
         try {
